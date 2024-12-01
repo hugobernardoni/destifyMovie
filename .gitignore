@@ -1,0 +1,72 @@
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# Logs e Debug
+logs/
+*.log
+*.tlog
+
+# Diretórios de Build
+bin/
+obj/
+publish/
+out/
+
+# Configurações e arquivos de usuário
+*.user
+*.rsuser
+*.suo
+.vscode/
+.idea/
+*.swp
+*.bak
+*.tmp
+*.db
+
+# Arquivos de cache e temporários
+*.pid
+*.cache
+*.lock
+
+# Configuração do sistema
+.vs/
+.vscode/
+*.dbmdl
+*.opendb
+
+# Dados sensíveis
+*.env
+secrets.json
+appsettings.*.json
+
+# Migrations do EF Core (se for regenerar sempre)
+Migrations/
+
+# Swagger
+wwwroot/swagger/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+.env
+
+# Outras dependências locais
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Excluindo pacotes
+*.nupkg
+*.snupkg
+
+# Pacotes gerados localmente
+*.pdb
+*.dll
+*.exe
+
+# Arquivos temporários de API e cache
+*.db-shm
+*.db-wal
+sqlite.db
