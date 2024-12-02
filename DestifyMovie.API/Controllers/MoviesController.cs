@@ -229,4 +229,50 @@ public class MoviesController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Failed to search movies.", detail = ex.Message });
         }
     }
+
+    /// <summary>
+    /// Adds a rating to a movie.
+    /// </summary>
+    /// <param name="id">The ID of the movie to rate.</param>
+    /// <param name="input">The rating details.</param>
+    /// <returns>The created rating.</returns>
+    /// <response code="200">If the rating is added successfully.</response>
+    /// <response code="404">If the movie is not found.</response>
+    [HttpPost("{id}/ratings")]
+    [ProducesResponseType(typeof(MovieRatingViewModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AddRating(int id, [FromBody] MovieRatingInputView input)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest("Invalid rating data.");
+        }
+
+        var movie = await _service.GetByIdAsync(id);
+        if (movie == null)
+        {
+            return NotFound($"Movie with ID {id} not found.");
+        }
+
+        try
+        {
+            var rating = new MovieRating
+            {
+                Rating = input.Rating,
+                Comment = input.Comment,
+                MovieId = id
+            };
+
+            await _service.AddRatingAsync(rating);
+
+            // Map the result to a ViewModel
+            var ratingViewModel = _mapper.Map<MovieRatingViewModel>(rating);
+
+            return Ok(ratingViewModel);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Failed to add rating.", detail = ex.Message });
+        }
+    }
 }

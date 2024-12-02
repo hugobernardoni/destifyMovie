@@ -1,0 +1,86 @@
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: var(--light-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  form label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+  }
+  
+  form input,
+  form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;    
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  form button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  form button:hover {
+    background-color: var(--secondary-color);
+    opacity: 0.9;
+  }
+  
+  .selected-actors {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .selected-actors h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .selected-actors ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .selected-actors li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .selected-actors li:last-child {
+    border-bottom: none;
+  }
+  
+  .selected-actors button {
+    padding: 5px 10px;
+    background-color: var(--danger-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .selected-actors button:hover {
+    background-color: #cc0000;
+  }
+  

@@ -5,7 +5,6 @@ using DestifyMovie.Data.Seed;
 using DestifyMovie.Data.Entities;
 using DestifyMovie.Repositories.Implementations;
 using DestifyMovie.Repositories.Interfaces;
-
 using DestifyMovie.Services.Interfaces;
 using DestifyMovie.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,7 +14,6 @@ using DestifyMovie.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options
         .UseLazyLoadingProxies()
@@ -24,7 +22,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
 
 builder.Services.AddAuthentication(options =>
 {
@@ -47,7 +44,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configuração do IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = true;
@@ -57,7 +53,16 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
 });
 
-// Registro de dependências
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IActorRepository, ActorRepository>();
@@ -67,20 +72,18 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
-    options.SuppressMapClientErrors = true; 
+    options.SuppressMapClientErrors = true;
 });
 
-// Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-// Configurar Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "DestifyMovie.API", Version = "v1" });
 
     c.MapType<int>(() => new Microsoft.OpenApi.Models.OpenApiSchema
     {
-        Example = new Microsoft.OpenApi.Any.OpenApiInteger(1) 
+        Example = new Microsoft.OpenApi.Any.OpenApiInteger(1)
     });
 
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -113,7 +116,6 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -121,33 +123,31 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
     });
 
-
 var app = builder.Build();
 
-// Aplicar Migrations e Seed do banco de dados
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var dbContext = services.GetRequiredService<AppDbContext>();
     var userManager = services.GetRequiredService<UserManager<User>>();
-
-    // Aplicar as migrations automaticamente
+    
     dbContext.Database.Migrate();
 
-    // Inserir dados iniciais
     await DbInitializer.SeedAsync(userManager, dbContext);
 }
 
-// Configuração de Middlewares
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAll");
+
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 app.Run();

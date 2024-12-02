@@ -13,6 +13,8 @@ services:
       POSTGRES_DB: destify_movie
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - destify_network
 
   api:
     build:
@@ -27,6 +29,27 @@ services:
       ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=destify_movie;Username=destify_user;Password=destify_pass"
     depends_on:
       - postgres
+    networks:
+      - destify_network
+
+  frontend:
+    build:
+      context: ./destify-frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: "http://localhost:5000/api"
+    container_name: destify_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - destify_network
+
+networks:
+  destify_network:
+    driver: bridge
 
 volumes:
   postgres_data:

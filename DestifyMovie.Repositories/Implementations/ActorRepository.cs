@@ -2,6 +2,7 @@
 using DestifyMovie.Data.Entities;
 using DestifyMovie.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace DestifyMovie.Repositories.Implementations;
 
@@ -15,7 +16,8 @@ public class ActorRepository : Repository<Actor>, IActorRepository
 
     public async Task<IEnumerable<Actor>> SearchByNameAsync(string name)
     {
-        return await FindByNameAsync(a => a.Name.Contains(name));
-    }    
+        return await FindByNameAsync(m => m.Name.ToLower().Contains(name.ToLower()));
+
+    }
 
 }

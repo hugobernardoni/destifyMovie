@@ -26,6 +26,7 @@ public class MovieMappingProfile : Profile
 
         CreateMap<ActorInputView, Actor>();
 
+        CreateMap<MovieRating, MovieRatingViewModel>();
         CreateMap<MovieRatingInputView, MovieRating>();
     }
 }

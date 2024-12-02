@@ -47,11 +47,11 @@ public class JwtMiddleware
             };
 
             var principal = tokenHandler.ValidateToken(token, parameters, out _);
-            context.User = principal; // Define o usuário no contexto HTTP
+            context.User = principal; 
         }
         catch
         {
-            // Se houver um erro na validação do token, o usuário não será autenticado.
+            
         }
     }
 }

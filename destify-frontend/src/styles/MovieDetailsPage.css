@@ -1,0 +1,96 @@
+.movie-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--light-color);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .movie-details h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+  }
+  
+  .movie-details p {
+    font-size: 1rem;
+    color: var(--dark-color);
+  }
+  
+  .rating-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid var(--gray-color);
+    border-radius: 10px;
+  }
+  
+  .rating-section h4 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+  }
+  
+  .rating-section input[type="number"],
+  .rating-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gray-color);
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .rating-section button {
+    width: 100%;
+    padding: 10px;
+    
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .rating-section button:hover {
+    background-color: var(--secondary-color);
+  }
+  
+  .ratings-list {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .ratings-list li {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: var(--light-color);
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .ratings-list li span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  .success-message,
+  .error-message {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  
+  .success-message {
+    color: green;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  

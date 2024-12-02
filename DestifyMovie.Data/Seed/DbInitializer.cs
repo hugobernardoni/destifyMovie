@@ -5,44 +5,80 @@ namespace DestifyMovie.Data.Seed;
 
 public static class DbInitializer
 {
-    public static async Task SeedAsync(UserManager<User> userManager, AppDbContext context)
+    public static async Task SeedAsync(UserManager<User> userManager, AppDbContext dbContext)
+    {
+        await SeedUsersAsync(userManager);
+        await SeedActorsAndMoviesAsync(dbContext);
+    }
+
+    private static async Task SeedUsersAsync(UserManager<User> userManager)
     {
         if (!userManager.Users.Any())
         {
-            var user = new User
+            var admin = new User
             {
                 UserName = "admin",
-                Email = "admin@example.com"                
+                Email = "admin@destify.com",
+                EmailConfirmed = true
             };
 
-            await userManager.CreateAsync(user, "Admin@123");
+            await userManager.CreateAsync(admin, "Admin@123");            
         }
+    }
 
-        if (!context.Movies.Any())
+    private static async Task SeedActorsAndMoviesAsync(AppDbContext dbContext)
+    {
+        if (!dbContext.Movies.Any() && !dbContext.Actors.Any())
         {
-            var actor1 = new Actor { Name = "Actor 1" };
-            var actor2 = new Actor { Name = "Actor 2" };
-
-            var movie1 = new Movie
+            var actors = new List<Actor>
             {
-                Title = "Movie 1",
-                ReleaseYear = 2020,
-                Actors = new List<Actor> { actor1, actor2 },
-                Ratings = new List<MovieRating>
+                new Actor { Name = "Leonardo DiCaprio" },
+                new Actor { Name = "Scarlett Johansson" },
+                new Actor { Name = "Robert Downey Jr." },
+                new Actor { Name = "Meryl Streep" },
+                new Actor { Name = "Tom Hanks" }
+            };
+
+            var movies = new List<Movie>
+            {
+                new Movie
                 {
-                    new MovieRating { Rating = 5, Comment = "Great movie!" }
+                    Title = "Inception",
+                    ReleaseYear = 2010,
+                    Ratings = new List<MovieRating>
+                    {
+                        new MovieRating { Rating = 5, Comment = "Mind-blowing!" },
+                        new MovieRating { Rating = 4, Comment = "A masterpiece!" }
+                    },
+                    Actors = new List<Actor> { actors[0], actors[4] }
+                },
+                new Movie
+                {
+                    Title = "Avengers: Endgame",
+                    ReleaseYear = 2019,
+                    Ratings = new List<MovieRating>
+                    {
+                        new MovieRating { Rating = 5, Comment = "Epic conclusion!" },
+                        new MovieRating { Rating = 4, Comment = "Amazing cast and story." }
+                    },
+                    Actors = new List<Actor> { actors[1], actors[2] }
+                },
+                new Movie
+                {
+                    Title = "The Devil Wears Prada",
+                    ReleaseYear = 2006,
+                    Ratings = new List<MovieRating>
+                    {
+                        new MovieRating { Rating = 4, Comment = "Fantastic performances!" },
+                        new MovieRating { Rating = 5, Comment = "Meryl Streep at her best!" }
+                    },
+                    Actors = new List<Actor> { actors[3] }
                 }
             };
 
-            var movie2 = new Movie
-            {
-                Title = "Movie 2",
-                ReleaseYear = 2021,
-                Actors = new List<Actor> { actor1 }
-            };
-
-            context.Movies.AddRange(movie1, movie2);
-            await context.SaveChangesAsync();
+            await dbContext.Actors.AddRangeAsync(actors);
+            await dbContext.Movies.AddRangeAsync(movies);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

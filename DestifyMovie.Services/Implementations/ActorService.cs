@@ -15,7 +15,7 @@ namespace DestifyMovie.Services
 
         public async Task<IEnumerable<Actor>> SearchByNameAsync(string title)
         {
-            return await _actorRepository.FindByNameAsync(m => m.Name.Contains(title));
+            return await _actorRepository.SearchByNameAsync(title);
         }
 
         public async Task<IEnumerable<Actor>> GetByIdsAsync(IEnumerable<int> ids)
