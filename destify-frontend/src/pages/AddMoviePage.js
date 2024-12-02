@@ -8,12 +8,20 @@ function AddMoviePage() {
   const [releaseYear, setReleaseYear] = useState("");
   const [actors, setActors] = useState([]);
   const [selectedActors, setSelectedActors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchActors = async () => {
-      const response = await axios.get("/actors");
-      setActors(response.data);
+      try {
+        const response = await axios.get("/actors");
+        setActors(response.data);
+      } catch (error) {
+        console.error("Error fetching actors:", error);
+        alert("Failed to load actors. Please try again.");
+      } finally {
+        setIsLoading(false); 
+      }
     };
 
     fetchActors();
@@ -51,6 +59,10 @@ function AddMoviePage() {
   const removeSelectedActor = (actorId) => {
     setSelectedActors(selectedActors.filter((actor) => actor.id !== actorId));
   };
+
+  if (isLoading) {
+    return <div className="form-container">Loading...</div>;
+  }
 
   return (
     <div className="form-container">
