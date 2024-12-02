@@ -40,8 +40,7 @@ out/
 secrets.json
 appsettings.*.json
 
-# Migrations do EF Core (se for regenerar sempre)
-Migrations/
+
 
 # Swagger
 wwwroot/swagger/
