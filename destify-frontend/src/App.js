@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import MoviesPage from "./pages/MoviesPage";
@@ -7,9 +7,10 @@ import MovieDetailsPage from "./pages/MovieDetailsPage";
 import AddMoviePage from "./pages/AddMoviePage";
 import AddActorPage from "./pages/AddActorPage";
 import Navbar from "./components/Navbar";
+import { AuthContext, AuthProvider } from "./context/AuthContext";
 
-function App() {
-  const token = localStorage.getItem("token");
+function AppRoutes() {
+  const { token } = useContext(AuthContext);
 
   return (
     <>
@@ -27,6 +28,14 @@ function App() {
         )}
       </Routes>
     </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
 }
 

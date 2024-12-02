@@ -5,7 +5,7 @@ import axios from "../services/axiosConfig";
 import "../styles/LoginPage.css";
 
 function LoginPage() {
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,12 +21,12 @@ function LoginPage() {
         password,
       });
 
-      // Armazenar o token e redirecionar para a página de filmes
+      
       const token = response.data.token;
-      login(token);
-      navigate("/movies");
+      login(token); 
+      navigate("/movies"); 
     } catch (err) {
-      // Tratar erros de autenticação
+      
       setError(
         err.response?.data?.error || "Invalid username or password. Try again."
       );
@@ -42,12 +42,14 @@ function LoginPage() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Login</button>
       </form>
