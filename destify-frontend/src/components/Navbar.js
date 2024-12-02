@@ -31,10 +31,10 @@ function Navbar() {
           {token && (
             <>
               <li>
-                <Link to="/movies/add">Add Movie</Link>
+                <Link to="/movie/add">Add Movie</Link>
               </li>
               <li>
-                <Link to="/actors/add">Add Actor</Link>
+                <Link to="/actor/add">Add Actor</Link>
               </li>
               <li>
                 <button className="logout-button" onClick={logout}>

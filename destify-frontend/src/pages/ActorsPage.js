@@ -26,7 +26,7 @@ function ActorsPage() {
   };
 
   const handleAddActor = () => {
-    navigate("/actors/add");
+    navigate("/actor/add");
   };
 
   const handleSearch = (e) => {

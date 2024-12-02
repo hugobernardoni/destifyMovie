@@ -26,7 +26,7 @@ function MoviesPage() {
   };
 
   const handleAddMovie = () => {
-    navigate("/movies/add");
+    navigate("/movie/add");
   };
 
   const handleSearch = (e) => {

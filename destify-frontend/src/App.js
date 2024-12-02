@@ -21,8 +21,8 @@ function App() {
         <Route path="/actors" element={<ActorsPage />} />
         {token && (
           <>
-            <Route path="/movies/add" element={<AddMoviePage />} />
-            <Route path="/actors/add" element={<AddActorPage />} />
+            <Route path="/movie/add" element={<AddMoviePage />} />
+            <Route path="/actor/add" element={<AddActorPage />} />
           </>
         )}
       </Routes>
