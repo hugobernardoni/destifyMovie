@@ -13,16 +13,23 @@ public static class DbInitializer
 
     private static async Task SeedUsersAsync(UserManager<User> userManager)
     {
-        if (!userManager.Users.Any())
+        try
         {
-            var admin = new User
+            if (!userManager.Users.Any())
             {
-                UserName = "admin",
-                Email = "admin@destify.com",
-                EmailConfirmed = true
-            };
+                var admin = new User
+                {
+                    UserName = "admin",
+                    Email = "admin@destify.com",
+                    EmailConfirmed = true
+                };
 
-            await userManager.CreateAsync(admin, "Admin@123");            
+                await userManager.CreateAsync(admin, "Admin@123");                
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error seeding users: {ex.Message}");
         }
     }
 
