@@ -34,7 +34,12 @@ This will start the following services:
 ### 2. Access the Application
 Once the containers are up and running, you can access the application:
 
-- Frontend: http://localhost:3000
+- Frontend: http://localhost:3000 and use
+```bash
+username: admin
+password: Admin@123
+```
+
 
 - API (Swagger Documentation): http://localhost:5000/swagger
 
